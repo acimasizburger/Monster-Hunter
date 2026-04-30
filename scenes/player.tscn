@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://bpaaymu4vhe63"]
+
+[ext_resource type="Script" uid="uid://rdcixtjyl0l2" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://da2e3blfnb3d4" path="res://assets/monochrome_tilemap_transparent_packed.png" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://bwjleqcgiaas0" path="res://scripts/state_machine.gd" id="3_qhqgy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqjtg"]
+atlas = ExtResource("1_uwrxv")
+region = Rect2(0, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnu2h"]
+atlas = ExtResource("1_uwrxv")
+region = Rect2(16, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbhrr"]
+atlas = ExtResource("1_uwrxv")
+region = Rect2(32, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iywne"]
+atlas = ExtResource("1_uwrxv")
+region = Rect2(48, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p57ef"]
+atlas = ExtResource("1_uwrxv")
+region = Rect2(64, 192, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u5sy4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqjtg")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnu2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbhrr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iywne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p57ef")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3vyb7"]
+radius = 4.0
+
+[node name="Player" type="CharacterBody2D" unique_id=121077867]
+script = ExtResource("1_g2els")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=769772647]
+sprite_frames = SubResource("SpriteFrames_u5sy4")
+animation = &"Run"
+autoplay = "Idle"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1419608862]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1185861414]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_3vyb7")
+
+[node name="State Machine" type="Node" parent="." unique_id=2028287141]
+script = ExtResource("3_qhqgy")
+
+[node name="Idle" type="Node" parent="State Machine" unique_id=577335025]
+
+[node name="Run" type="Node" parent="State Machine" unique_id=318422244]
+
+[node name="Attack" type="Node" parent="State Machine" unique_id=1338469355]
+
+[node name="Rage" type="Node" parent="State Machine" unique_id=864068368]
+
+[node name="Die" type="Node" parent="State Machine" unique_id=120554833]
