@@ -17,6 +17,9 @@ func init(parent_entity: CharacterBody2D) -> void:
 		current_state = initial_state
 		current_state.enter()
 
+func has_state(state_name: StringName) -> bool:
+	return states.has(state_name.to_lower())
+
 func _process(delta: float) -> void:
 	if current_state:
 		current_state.update(delta)

@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://1l6sfsgq7lem"]
+
+[ext_resource type="Script" uid="uid://b7ses8wp6w15l" path="res://weapons/projectiles/bullet.gd" id="1_apb1g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(13.5, 3.75)
+
+[node name="Bullet" type="Area2D" unique_id=887453959]
+collision_layer = 16
+collision_mask = 33
+script = ExtResource("1_apb1g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=336991394]
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[node name="Visual" type="ColorRect" parent="." unique_id=2036376902]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -2.0
+offset_right = 7.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 1, 0, 1)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1956603167]
+rect = Rect2(-7, -2, 14, 4)

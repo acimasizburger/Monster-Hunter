@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BulletData" format=3 uid="uid://cm04js0n7atb4"]
+
+[ext_resource type="Script" uid="uid://cvu7c04uebr1f" path="res://weapons/revolver/bullet_data.gd" id="1_hxhjl"]
+
+[resource]
+script = ExtResource("1_hxhjl")
+bullet_name = &"holy"
+damage = 30
+color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://cvu7c04uebr1f"

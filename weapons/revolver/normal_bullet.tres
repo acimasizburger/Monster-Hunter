@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BulletData" format=3 uid="uid://bv2lxw1m43qtn"]
+
+[ext_resource type="Script" uid="uid://cvu7c04uebr1f" path="res://weapons/revolver/bullet_data.gd" id="1_30sh4"]
+
+[resource]
+script = ExtResource("1_30sh4")
+metadata/_custom_type_script = "uid://cvu7c04uebr1f"

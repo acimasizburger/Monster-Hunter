@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bmlla5iupt5wr"]
 
 [ext_resource type="PackedScene" uid="uid://bpaaymu4vhe63" path="res://entities/player/player.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://uqauas1r7cpr" path="res://entities/enemies/flyer/flyer_enemy.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://ddr8rhgihg2ob" path="res://entities/enemies/walker/walker_enemy.tscn" id="3_jyhfs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
 size = Vector2(151, 20)
@@ -10,8 +12,20 @@ size = Vector2(100, 1)
 
 [node name="Node2D" type="Node2D" unique_id=876097835]
 
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1998077809]
+scale = Vector2(29.159996, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1298704735]
+shape = SubResource("RectangleShape2D_o5qli")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2" unique_id=919368356]
+position = Vector2(-0.40083364, 10)
+scale = Vector2(1.5119833, -19.999998)
+texture = SubResource("PlaceholderTexture2D_yf5fn")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=558529629]
-scale = Vector2(1.76, 1)
+position = Vector2(-46, -19)
+scale = Vector2(0.1600008, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=207212069]
 shape = SubResource("RectangleShape2D_o5qli")
@@ -21,5 +35,26 @@ position = Vector2(-0.40083364, 10)
 scale = Vector2(1.5119833, -19.999998)
 texture = SubResource("PlaceholderTexture2D_yf5fn")
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=1254722088]
+position = Vector2(-269.99997, -20.000002)
+scale = Vector2(0.105795756, 0.92644566)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=114765120]
+shape = SubResource("RectangleShape2D_o5qli")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3" unique_id=1489203435]
+position = Vector2(-0.40083364, 10)
+scale = Vector2(1.5119833, -19.999998)
+texture = SubResource("PlaceholderTexture2D_yf5fn")
+
 [node name="Player" parent="." unique_id=121077867 instance=ExtResource("1_o5qli")]
 position = Vector2(0, -39)
+
+[node name="FlyerEnemy" parent="." unique_id=1588882479 instance=ExtResource("2_sugp2")]
+position = Vector2(-132, -115)
+
+[node name="FlyerEnemy2" parent="." unique_id=1033843540 instance=ExtResource("2_sugp2")]
+position = Vector2(156, -168)
+
+[node name="WalkerEnemy" parent="." unique_id=1087407596 instance=ExtResource("3_jyhfs")]
+position = Vector2(-110, -20)

@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://uqauas1r7cpr"]
+
+[ext_resource type="Script" uid="uid://bch2ff3m1tt7y" path="res://entities/enemies/flyer/flyer_enemy.gd" id="1_fas6y"]
+[ext_resource type="Script" uid="uid://kxvpkd8xjrdq" path="res://components/health_component.gd" id="2_kgisb"]
+[ext_resource type="Script" uid="uid://cu3sf6jftulnn" path="res://components/hurtbox_component.gd" id="3_0xng5"]
+[ext_resource type="Script" uid="uid://by4doemoat431" path="res://components/loot_drop_component.gd" id="4_r2pvi"]
+[ext_resource type="PackedScene" uid="uid://17g8ufp3ira4" path="res://weapons/pickups/ammo_pickup.tscn" id="5_kot1p"]
+[ext_resource type="Resource" uid="uid://bv2lxw1m43qtn" path="res://weapons/revolver/normal_bullet.tres" id="6_esti3"]
+[ext_resource type="Script" uid="uid://wmyo4ap26hlx" path="res://components/hitbox_component.gd" id="7_6ckcp"]
+[ext_resource type="Script" uid="uid://bwjleqcgiaas0" path="res://components/state_machine.gd" id="8_u11tm"]
+[ext_resource type="Script" uid="uid://ceenbjjkogsdo" path="res://entities/enemies/states/enemy_patrol.gd" id="9_pscps"]
+[ext_resource type="Script" uid="uid://bnpkl31o8dxcj" path="res://entities/enemies/states/enemy_chase.gd" id="10_db2e3"]
+[ext_resource type="Script" uid="uid://cf73j10845muq" path="res://entities/enemies/states/enemy_dead.gd" id="11_4ccww"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wi65"]
+size = Vector2(38, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(38, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_57qmd"]
+radius = 96.00521
+
+[node name="FlyerEnemy" type="CharacterBody2D" unique_id=1588882479]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_fas6y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1757799563]
+shape = SubResource("RectangleShape2D_8wi65")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=553235673]
+script = ExtResource("2_kgisb")
+metadata/_custom_type_script = "uid://kxvpkd8xjrdq"
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=745428469 node_paths=PackedStringArray("health_component")]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("3_0xng5")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cu3sf6jftulnn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1161055713]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="LootDropComponent" type="Node" parent="." unique_id=251090148 node_paths=PackedStringArray("health_component")]
+script = ExtResource("4_r2pvi")
+health_component = NodePath("../HealthComponent")
+pickup_scene = ExtResource("5_kot1p")
+drop_bullet_data = ExtResource("6_esti3")
+metadata/_custom_type_script = "uid://by4doemoat431"
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1591924891]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1540647564]
+shape = SubResource("CircleShape2D_57qmd")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=836075695]
+
+[node name="PlaceholderSprite" type="ColorRect" parent="Visuals" unique_id=2118591059]
+offset_left = -19.0
+offset_top = -10.0
+offset_right = 19.0
+offset_bottom = 10.0
+color = Color(0.8695176, 0.4996336, 0.5246294, 1)
+
+[node name="ContactHitbox" type="Area2D" parent="Visuals" unique_id=666156660]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("7_6ckcp")
+continuous_damage = true
+metadata/_custom_type_script = "uid://wmyo4ap26hlx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/ContactHitbox" unique_id=253910334]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1273396924 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("8_u11tm")
+initial_state = NodePath("Patrol")
+metadata/_custom_type_script = "uid://bwjleqcgiaas0"
+
+[node name="Patrol" type="Node" parent="StateMachine" unique_id=879595613]
+script = ExtResource("9_pscps")
+
+[node name="Chase" type="Node" parent="StateMachine" unique_id=1842456150]
+script = ExtResource("10_db2e3")
+
+[node name="Dead" type="Node" parent="StateMachine" unique_id=1556147859]
+script = ExtResource("11_4ccww")

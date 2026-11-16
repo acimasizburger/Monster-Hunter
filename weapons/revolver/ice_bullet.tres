@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BulletData" format=3 uid="uid://bo6i6rj0touf8"]
+
+[ext_resource type="Script" uid="uid://cvu7c04uebr1f" path="res://weapons/revolver/bullet_data.gd" id="1_2tpcb"]
+
+[resource]
+script = ExtResource("1_2tpcb")
+bullet_name = &"ice"
+damage = 20
+color = Color(0, 1, 1, 1)
+slow_factor = 0.5
+metadata/_custom_type_script = "uid://cvu7c04uebr1f"

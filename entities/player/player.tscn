@@ -7,9 +7,14 @@
 [ext_resource type="Script" uid="uid://5rbtvou2086d" path="res://entities/player/states/run.gd" id="5_qiwj3"]
 [ext_resource type="Script" uid="uid://cvpxh54s3nksq" path="res://entities/player/states/air.gd" id="6_26q78"]
 [ext_resource type="Script" uid="uid://bvcq1keuw8vue" path="res://entities/player/states/melee.gd" id="6_wvtmh"]
+[ext_resource type="Script" uid="uid://cavq0j4i10spf" path="res://entities/player/states/dead.gd" id="7_gx6sm"]
 [ext_resource type="Script" uid="uid://kxvpkd8xjrdq" path="res://components/health_component.gd" id="7_qiwj3"]
 [ext_resource type="Script" uid="uid://cu3sf6jftulnn" path="res://components/hurtbox_component.gd" id="8_26q78"]
 [ext_resource type="Script" uid="uid://wmyo4ap26hlx" path="res://components/hitbox_component.gd" id="9_bectd"]
+[ext_resource type="Script" uid="uid://dmojnq8dobxyi" path="res://weapons/revolver/revolver_component.gd" id="11_j3ovn"]
+[ext_resource type="PackedScene" uid="uid://1l6sfsgq7lem" path="res://weapons/projectiles/bullet.tscn" id="12_afbqv"]
+[ext_resource type="Resource" uid="uid://bv2lxw1m43qtn" path="res://weapons/revolver/normal_bullet.tres" id="13_gx6sm"]
+[ext_resource type="Script" uid="uid://c4v20vfa4g6hg" path="res://components/rage_component.gd" id="14_afbqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wvtmh"]
 size = Vector2(10, 10.5)
@@ -69,6 +74,8 @@ animations = [{
 size = Vector2(7, 13)
 
 [node name="Player" type="CharacterBody2D" unique_id=121077867]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_sglur")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1419608862]
@@ -93,11 +100,15 @@ script = ExtResource("6_26q78")
 [node name="Melee" type="Node" parent="StateMachine" unique_id=1263075437]
 script = ExtResource("6_wvtmh")
 
+[node name="Dead" type="Node" parent="StateMachine" unique_id=1094184826]
+script = ExtResource("7_gx6sm")
+
 [node name="HealthComponent" type="Node" parent="." unique_id=1886039692]
 script = ExtResource("7_qiwj3")
 metadata/_custom_type_script = "uid://kxvpkd8xjrdq"
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=1803508530 node_paths=PackedStringArray("health_component")]
+collision_layer = 8
 script = ExtResource("8_26q78")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cu3sf6jftulnn"
@@ -109,14 +120,15 @@ debug_color = Color(0.9831392, 0, 0.36008546, 0.41960785)
 
 [node name="Visuals" type="Node2D" parent="." unique_id=1135498082]
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Visuals" unique_id=769772647]
+[node name="HumanSprite" type="AnimatedSprite2D" parent="Visuals" unique_id=769772647]
 sprite_frames = SubResource("SpriteFrames_u5sy4")
 animation = &"Idle"
 autoplay = "Idle"
 
 [node name="MeleeHitbox" type="Area2D" parent="Visuals" unique_id=1151591482]
 position = Vector2(9, 2)
-collision_layer = 8
+collision_layer = 16
+collision_mask = 48
 script = ExtResource("9_bectd")
 is_melee = true
 metadata/_custom_type_script = "uid://wmyo4ap26hlx"
@@ -138,3 +150,21 @@ offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0, 0, 0.49019608)
+
+[node name="MuzzlePoint" type="Marker2D" parent="Visuals" unique_id=710622540]
+position = Vector2(6, 5)
+
+[node name="MonsterSprite" type="AnimatedSprite2D" parent="Visuals" unique_id=1441963545]
+visible = false
+modulate = Color(3.080368e-06, 0.65093696, 0.17691195, 1)
+sprite_frames = SubResource("SpriteFrames_u5sy4")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="RevolverComponent" type="Node" parent="." unique_id=1800634975]
+script = ExtResource("11_j3ovn")
+bullet_scene = ExtResource("12_afbqv")
+default_bullet = ExtResource("13_gx6sm")
+
+[node name="RageComponent" type="Node" parent="." unique_id=1323872041]
+script = ExtResource("14_afbqv")

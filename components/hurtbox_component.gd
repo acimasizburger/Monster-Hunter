@@ -3,7 +3,7 @@ extends Area2D
 
 @export var health_component: HealthComponent
 
-@export var resistances: Dictionary = {}
+@export var resistances: Dictionary[String, int] = {}
 
 func receive_hit(base_damage: int, damage_type: StringName, is_melee: bool) -> void:
 	if not health_component:
