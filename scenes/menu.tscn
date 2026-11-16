@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://cuomxv0hwdq8k"]
+
+[ext_resource type="Script" uid="uid://tkm1qoterphj" path="res://UI/main_menu.gd" id="1_vjb58"]
+[ext_resource type="PackedScene" uid="uid://jhpne2qpapap" path="res://scenes/CRT.tscn" id="1_yqeox"]
+
+[node name="MainMenu" type="Control" unique_id=40981431]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(199, 89)
+script = ExtResource("1_vjb58")
+first_level_scene = "uid://bmlla5iupt5wr"
+normal_color = Color(0.9411765, 0.9647059, 0.9411765, 1)
+
+[node name="Background" type="ColorRect" parent="." unique_id=452646514]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13333334, 0.13725491, 0.13725491, 1)
+
+[node name="TitleLabel" type="Label" parent="." unique_id=542655488]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.5
+offset_top = 19.0
+offset_right = 32.5
+offset_bottom = 68.0
+grow_horizontal = 2
+text = "Monster
+Hunter"
+horizontal_alignment = 1
+
+[node name="MenuContainer" type="VBoxContainer" parent="." unique_id=1484182072]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.5
+offset_top = -82.0
+offset_right = 52.5
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StartButton" type="Button" parent="MenuContainer" unique_id=1137654354]
+layout_mode = 2
+text = "Oyuna Başla"
+
+[node name="QuitButton" type="Button" parent="MenuContainer" unique_id=170743875]
+layout_mode = 2
+text = "Oyundan Çık"
+
+[node name="Cursor" type="TextureRect" parent="." unique_id=2080060325]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CanvasLayer" parent="." unique_id=87756456 instance=ExtResource("1_yqeox")]

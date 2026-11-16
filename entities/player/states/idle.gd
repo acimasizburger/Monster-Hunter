@@ -1,7 +1,8 @@
 extends PlayerState
 
 func enter(_msg := {}) -> void:
-	player.velocity.x = 0
+	if player.knockback_timer <= 0.0:
+		player.velocity.x = 0
 
 func physics_update(delta: float) -> void:
 	player.apply_gravity(delta)

@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is HurtboxComponent:
-		area.receive_hit(data.damage, data.bullet_name, false)
+		area.receive_hit(data.damage, data.bullet_name, false, global_position)
 		queue_free()
 
 func _on_body_entered(_body: Node2D) -> void:

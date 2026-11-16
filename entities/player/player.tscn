@@ -78,8 +78,6 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_sglur")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1419608862]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1185861414]
 position = Vector2(0, 2.75)
 shape = SubResource("RectangleShape2D_wvtmh")

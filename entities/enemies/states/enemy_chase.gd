@@ -3,6 +3,8 @@ extends EnemyState
 @export var attack_range: float = 36.0
 
 func physics_update(delta: float) -> void:
+	if enemy.knockback_timer > 0.0:
+		return
 	if not enemy.target_player:
 		if enemy.state_machine.has_state("Patrol"):
 			transitioned.emit("Patrol")

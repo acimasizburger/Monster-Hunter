@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://jhpne2qpapap"]
+
+[ext_resource type="Shader" uid="uid://dqr8utcb1be5p" path="res://assets/shaders/crt.gdshader" id="1_edea4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf5fn"]
+shader = ExtResource("1_edea4")
+shader_parameter/scanline_strength = 0.22
+shader_parameter/curvature = 0.02
+shader_parameter/vignette_strength = 0.25
+shader_parameter/chromatic_aberration = 0.6
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=87756456]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=175098862]
+material = SubResource("ShaderMaterial_yf5fn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

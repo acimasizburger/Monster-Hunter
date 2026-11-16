@@ -8,6 +8,8 @@ func enter(_msg := {}) -> void:
 	turn_timer = patrol_turn_time
 
 func physics_update(delta: float) -> void:
+	if enemy.knockback_timer > 0.0:
+		return
 	if enemy.target_player:
 		if enemy.state_machine.has_state("Shoot"):
 			transitioned.emit("Shoot")

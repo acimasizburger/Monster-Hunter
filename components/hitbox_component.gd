@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 		tick_timer = damage_interval
 		for area in get_overlapping_areas():
 			if area is HurtboxComponent:
-				area.receive_hit(damage, damage_type, is_melee)
+				area.receive_hit(damage, damage_type, is_melee, global_position)
 
 func activate() -> void:
 	hit_targets.clear()
@@ -39,4 +39,4 @@ func _on_area_entered(area: Area2D) -> void:
 		if area.owner in hit_targets:
 			return
 		hit_targets.append(area.owner)
-		area.receive_hit(damage, damage_type, is_melee)
+		area.receive_hit(damage, damage_type, is_melee, global_position)
