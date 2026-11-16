@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bpaaymu4vhe63"]
 
 [ext_resource type="Script" uid="uid://rdcixtjyl0l2" path="res://entities/player/player.gd" id="1_sglur"]
+[ext_resource type="PackedScene" uid="uid://my774kb2dbml" path="res://effects/jump_dust.tscn" id="2_3wlsy"]
 [ext_resource type="Texture2D" uid="uid://da2e3blfnb3d4" path="res://assets/monochrome_tilemap_transparent_packed.png" id="2_bls4j"]
 [ext_resource type="Script" uid="uid://bwjleqcgiaas0" path="res://components/state_machine.gd" id="3_fkugw"]
 [ext_resource type="Script" uid="uid://bkgy4vvhr5pta" path="res://entities/player/states/idle.gd" id="4_8fjmc"]
@@ -78,6 +79,7 @@ size = Vector2(7, 13)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_sglur")
+jump_dust_scene = ExtResource("2_3wlsy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1185861414]
 position = Vector2(0, 2.75)
@@ -168,3 +170,6 @@ default_bullet = ExtResource("13_gx6sm")
 
 [node name="RageComponent" type="Node" parent="." unique_id=1323872041]
 script = ExtResource("14_afbqv")
+
+[node name="FeetPoint" type="Marker2D" parent="." unique_id=1584149011]
+position = Vector2(0, 8)

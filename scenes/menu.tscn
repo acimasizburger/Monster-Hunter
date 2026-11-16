@@ -90,7 +90,6 @@ theme_override_font_sizes/font_size = 8
 text = ">"
 
 [node name="CanvasLayer" parent="." unique_id=87756456 instance=ExtResource("1_yqeox")]
-visible = false
 
 [node name="Info" type="Label" parent="." unique_id=1577371952]
 layout_mode = 1

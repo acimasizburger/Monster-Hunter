@@ -14,7 +14,10 @@ extends CharacterBody2D
 @export var rage_melee_damage: int = 55
 @export var knockback_force: Vector2 = Vector2(130.0, -110.0)
 @export var knockback_duration: float = 0.2
+@export_group("Effects")
+@export var jump_dust_scene: PackedScene
 
+@onready var feet_point: Marker2D = $FeetPoint
 @onready var visuals: Node2D = $Visuals
 @onready var human_sprite: AnimatedSprite2D = $Visuals/HumanSprite
 @onready var monster_sprite: AnimatedSprite2D = $Visuals/MonsterSprite
@@ -108,6 +111,14 @@ func execute_jump() -> void:
 	velocity.y = jump_velocity
 	coyote_timer = 0.0
 	jump_buffer_timer = 0.0
+	_spawn_jump_dust()
+
+func _spawn_jump_dust() -> void:
+	if not jump_dust_scene:
+		return
+	var dust := jump_dust_scene.instantiate()
+	dust.global_position = feet_point.global_position
+	get_tree().current_scene.add_child(dust)
 
 func update_facing_direction(direction: float) -> void:
 	if knockback_timer > 0.0:

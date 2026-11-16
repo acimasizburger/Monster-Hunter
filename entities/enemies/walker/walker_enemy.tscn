@@ -7,26 +7,31 @@
 [ext_resource type="PackedScene" uid="uid://17g8ufp3ira4" path="res://weapons/pickups/ammo_pickup.tscn" id="5_t56m7"]
 [ext_resource type="Resource" uid="uid://bv2lxw1m43qtn" path="res://weapons/revolver/normal_bullet.tres" id="6_la7oj"]
 [ext_resource type="Script" uid="uid://wmyo4ap26hlx" path="res://components/hitbox_component.gd" id="7_h01sy"]
+[ext_resource type="Texture2D" uid="uid://da2e3blfnb3d4" path="res://assets/monochrome_tilemap_transparent_packed.png" id="7_t56m7"]
 [ext_resource type="Script" uid="uid://bwjleqcgiaas0" path="res://components/state_machine.gd" id="8_wmlcn"]
 [ext_resource type="Script" uid="uid://ceenbjjkogsdo" path="res://entities/enemies/states/enemy_patrol.gd" id="9_d8vpr"]
 [ext_resource type="Script" uid="uid://bnpkl31o8dxcj" path="res://entities/enemies/states/enemy_chase.gd" id="10_q1nnt"]
 [ext_resource type="Script" uid="uid://cf73j10845muq" path="res://entities/enemies/states/enemy_dead.gd" id="11_lvsir"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
-size = Vector2(20, 36)
+size = Vector2(12, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(20, 36)
+size = Vector2(12, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_57qmd"]
-radius = 66.189125
+radius = 51.009804
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
+atlas = ExtResource("7_t56m7")
+region = Rect2(0, 257, 16, 15)
 
 [node name="WalkerEnemy" type="CharacterBody2D" unique_id=1588882479]
 collision_layer = 4
 script = ExtResource("1_5ggxl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1757799563]
-position = Vector2(0, -8)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_yf5fn")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=553235673]
@@ -40,7 +45,7 @@ script = ExtResource("3_n2g60")
 metadata/_custom_type_script = "uid://cu3sf6jftulnn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1161055713]
-position = Vector2(0, -8)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="LootDropComponent" type="Node" parent="." unique_id=251090148 node_paths=PackedStringArray("health_component")]
@@ -59,12 +64,8 @@ shape = SubResource("CircleShape2D_57qmd")
 
 [node name="Visuals" type="Node2D" parent="." unique_id=836075695]
 
-[node name="PlaceholderSprite" type="ColorRect" parent="Visuals" unique_id=2118591059]
-offset_left = -10.0
-offset_top = -26.0
-offset_right = 10.0
-offset_bottom = 10.0
-color = Color(1, 0, 1, 1)
+[node name="PlaceholderSprite" type="Sprite2D" parent="Visuals" unique_id=341896513]
+texture = SubResource("AtlasTexture_g4v7s")
 metadata/_edit_use_anchors_ = true
 
 [node name="FloorRayCast" type="RayCast2D" parent="Visuals" unique_id=1419165323]
@@ -79,7 +80,7 @@ continuous_damage = true
 metadata/_custom_type_script = "uid://wmyo4ap26hlx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/ContactHitbox" unique_id=253910334]
-position = Vector2(0, -8)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1273396924 node_paths=PackedStringArray("initial_state")]
