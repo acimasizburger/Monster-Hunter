@@ -6,6 +6,7 @@ signal reload_started(duration: float)
 signal reload_finished
 
 @export var bullet_scene: PackedScene
+@export var shell_scene: PackedScene
 @export var default_bullet: BulletData
 @export var max_capacity: int = 6
 @export var reload_duration: float = 1.2
@@ -42,6 +43,8 @@ func shoot(spawn_position: Vector2, direction: int) -> bool:
 	bullet_instance.setup(current_bullet, direction)
 	get_tree().current_scene.add_child(bullet_instance)
 	
+	_eject_shell(spawn_position, direction)
+	
 	cooldown_timer = fire_cooldown
 	magazine_updated.emit(magazine, max_capacity)
 	
@@ -49,6 +52,14 @@ func shoot(spawn_position: Vector2, direction: int) -> bool:
 		start_reload()
 		
 	return true
+
+func _eject_shell(spawn_position: Vector2, direction: int) -> void:
+	if not shell_scene:
+		return
+	var shell: ShellCasing = shell_scene.instantiate()
+	shell.global_position = spawn_position
+	get_tree().current_scene.add_child(shell)
+	shell.launch(direction)
 
 func start_reload() -> void:
 	if is_reloading:

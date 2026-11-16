@@ -6,6 +6,8 @@ extends CharacterBody2D
 @export var rage_move_speed: float = 140.0
 @export var jump_velocity: float = -240.0
 @export var gravity: float = 750.0
+@export var coyote_time: float = 0.12
+@export var jump_buffer_time: float = 0.12
 
 @export_group("Combat")
 @export var normal_melee_damage: int = 20
@@ -30,6 +32,8 @@ var facing_direction: int = 1
 var is_rage_mode: bool = false
 var is_dead: bool = false
 var knockback_timer: float = 0.0
+var coyote_timer: float = 0.0
+var jump_buffer_timer: float = 0.0
 
 func _ready() -> void:
 	move_speed = normal_move_speed
@@ -46,10 +50,28 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:
 		knockback_timer -= delta
+		
+	if is_on_floor():
+		coyote_timer = coyote_time
+	elif coyote_timer > 0.0:
+		coyote_timer -= delta
+		
+	if jump_buffer_timer > 0.0:
+		jump_buffer_timer -= delta
+
+var last_horizontal_dir: float = 0.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_dead:
 		return
+		
+	if event.is_action_pressed("move_left"):
+		last_horizontal_dir = -1.0
+	elif event.is_action_pressed("move_right"):
+		last_horizontal_dir = 1.0
+		
+	if event.is_action_pressed("jump") and knockback_timer <= 0.0:
+		jump_buffer_timer = jump_buffer_time
 		
 	if event.is_action_pressed("rage"):
 		rage_component.activate()
@@ -66,7 +88,26 @@ func _unhandled_input(event: InputEvent) -> void:
 func get_input_direction() -> float:
 	if knockback_timer > 0.0 or is_dead:
 		return 0.0
-	return Input.get_axis("left", "right")
+		
+	var left_pressed := Input.is_action_pressed("move_left")
+	var right_pressed := Input.is_action_pressed("move_right")
+	
+	if left_pressed and right_pressed:
+		return last_horizontal_dir
+	elif left_pressed:
+		return -1.0
+	elif right_pressed:
+		return 1.0
+		
+	return 0.0
+
+func can_jump() -> bool:
+	return coyote_timer > 0.0 and jump_buffer_timer > 0.0
+
+func execute_jump() -> void:
+	velocity.y = jump_velocity
+	coyote_timer = 0.0
+	jump_buffer_timer = 0.0
 
 func update_facing_direction(direction: float) -> void:
 	if knockback_timer > 0.0:

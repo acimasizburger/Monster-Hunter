@@ -14,8 +14,15 @@ func exit() -> void:
 	player.melee_visual.visible = false
 
 func physics_update(delta: float) -> void:
+	if player.can_jump():
+		player.execute_jump()
+
 	var direction := player.get_input_direction()
-	player.velocity.x = direction * player.move_speed
+	if player.knockback_timer <= 0.0:
+		player.velocity.x = direction * player.move_speed
+		
+	if Input.is_action_just_released("jump") and player.velocity.y < 0:
+		player.velocity.y *= 0.5
 	
 	player.apply_gravity(delta)
 	player.move_and_slide()

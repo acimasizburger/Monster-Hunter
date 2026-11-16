@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://tkm1qoterphj" path="res://UI/main_menu.gd" id="1_vjb58"]
 [ext_resource type="PackedScene" uid="uid://jhpne2qpapap" path="res://scenes/CRT.tscn" id="1_yqeox"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjb58"]
+
 [node name="MainMenu" type="Control" unique_id=40981431]
 layout_mode = 3
 anchors_preset = 15
@@ -14,6 +16,7 @@ pivot_offset = Vector2(199, 89)
 script = ExtResource("1_vjb58")
 first_level_scene = "uid://bmlla5iupt5wr"
 normal_color = Color(0.9411765, 0.9647059, 0.9411765, 1)
+selected_color = Color(0.7490196, 0.62352943, 0.21568628, 1)
 
 [node name="Background" type="ColorRect" parent="." unique_id=452646514]
 layout_mode = 1
@@ -29,14 +32,16 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -32.5
+offset_left = -56.0
 offset_top = 19.0
-offset_right = 32.5
+offset_right = 56.0
 offset_bottom = 68.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 8
 text = "Monster
 Hunter"
 horizontal_alignment = 1
+uppercase = true
 
 [node name="MenuContainer" type="VBoxContainer" parent="." unique_id=1484182072]
 layout_mode = 1
@@ -46,23 +51,61 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -52.5
-offset_top = -82.0
+offset_top = -88.0
 offset_right = 52.5
-offset_bottom = -16.0
+offset_bottom = -22.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = -3
 
 [node name="StartButton" type="Button" parent="MenuContainer" unique_id=1137654354]
 layout_mode = 2
-text = "Oyuna Başla"
+theme_override_font_sizes/font_size = 8
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vjb58")
+text = "OYUNA BAŞLA"
+flat = true
+alignment = 0
+
+[node name="SettingsButton" type="Button" parent="MenuContainer" unique_id=1277095963]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vjb58")
+text = "AYARLAR"
+flat = true
+alignment = 0
 
 [node name="QuitButton" type="Button" parent="MenuContainer" unique_id=170743875]
 layout_mode = 2
-text = "Oyundan Çık"
+theme_override_font_sizes/font_size = 8
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vjb58")
+text = "ÇIKIŞ"
+flat = true
+alignment = 0
 
-[node name="Cursor" type="TextureRect" parent="." unique_id=2080060325]
+[node name="Cursor" type="Label" parent="." unique_id=501121403]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_font_sizes/font_size = 8
+text = ">"
 
 [node name="CanvasLayer" parent="." unique_id=87756456 instance=ExtResource("1_yqeox")]
+visible = false
+
+[node name="Info" type="Label" parent="." unique_id=1577371952]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -16.0
+offset_right = 96.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "260807105 alperen turan"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true

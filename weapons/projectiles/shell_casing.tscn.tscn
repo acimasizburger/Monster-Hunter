@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://gh2f8iafaxpm"]
+
+[ext_resource type="Script" uid="uid://cy3t04t2wbauf" path="res://weapons/projectiles/shell_casing.tscn.gd" id="1_gl1cg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(2, 1)
+
+[node name="ShellCasing_tscn" type="CharacterBody2D" unique_id=2096866339]
+collision_layer = 0
+script = ExtResource("1_gl1cg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1313444247]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="Visual" type="ColorRect" parent="." unique_id=1299914397]
+offset_left = -1.0
+offset_top = -0.5
+offset_right = 1.0
+offset_bottom = 0.5
+color = Color(0.89411765, 0.7372549, 0.22745098, 1)

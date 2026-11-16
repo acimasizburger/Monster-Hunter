@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://1l6sfsgq7lem" path="res://weapons/projectiles/bullet.tscn" id="12_afbqv"]
 [ext_resource type="Resource" uid="uid://bv2lxw1m43qtn" path="res://weapons/revolver/normal_bullet.tres" id="13_gx6sm"]
 [ext_resource type="Script" uid="uid://c4v20vfa4g6hg" path="res://components/rage_component.gd" id="14_afbqv"]
+[ext_resource type="PackedScene" uid="uid://gh2f8iafaxpm" path="res://weapons/projectiles/shell_casing.tscn.tscn" id="14_yqrof"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wvtmh"]
 size = Vector2(10, 10.5)
@@ -162,6 +163,7 @@ autoplay = "Idle"
 [node name="RevolverComponent" type="Node" parent="." unique_id=1800634975]
 script = ExtResource("11_j3ovn")
 bullet_scene = ExtResource("12_afbqv")
+shell_scene = ExtResource("14_yqrof")
 default_bullet = ExtResource("13_gx6sm")
 
 [node name="RageComponent" type="Node" parent="." unique_id=1323872041]

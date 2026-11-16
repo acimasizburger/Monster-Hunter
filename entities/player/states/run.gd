@@ -1,10 +1,21 @@
 extends PlayerState
 
 func physics_update(delta: float) -> void:
+	if Input.is_action_just_pressed("melee"):
+		transitioned.emit("Melee")
+		return
+
+	if player.can_jump():
+		player.execute_jump()
+		transitioned.emit("Air")
+		return
+
 	var direction := player.get_input_direction()
 	player.update_facing_direction(direction)
 	
-	player.velocity.x = direction * player.move_speed
+	if player.knockback_timer <= 0.0:
+		player.velocity.x = direction * player.move_speed
+		
 	player.apply_gravity(delta)
 	player.move_and_slide()
 	
@@ -12,14 +23,5 @@ func physics_update(delta: float) -> void:
 		transitioned.emit("Air")
 		return
 		
-	if Input.is_action_just_pressed("melee"):
-		transitioned.emit("Melee")
-		return
-		
-	if Input.is_action_just_pressed("jump"):
-		player.velocity.y = player.jump_velocity
-		transitioned.emit("Air")
-		return
-		
-	if direction == 0:
+	if direction == 0 and player.knockback_timer <= 0.0:
 		transitioned.emit("Idle")

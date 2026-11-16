@@ -3,7 +3,7 @@ extends Resource
 
 @export var bullet_name: StringName = &"normal"
 @export var damage: int = 25
-@export var speed: float = 650.0
+@export var speed: float = 300.0
 @export var color: Color = Color.WHITE
 @export var is_explosive: bool = false
 @export var explosion_radius: float = 48.0
