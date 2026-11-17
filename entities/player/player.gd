@@ -19,14 +19,14 @@ extends CharacterBody2D
 
 @onready var feet_point: Marker2D = $FeetPoint
 @onready var visuals: Node2D = $Visuals
-@onready var human_sprite: AnimatedSprite2D = $Visuals/HumanSprite
-@onready var monster_sprite: AnimatedSprite2D = $Visuals/MonsterSprite
+@onready var human_sprite: Sprite2D = $Visuals/Human
+@onready var monster_sprite: Sprite2D = $Visuals/Monster
 @onready var state_machine: StateMachine = $StateMachine
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
 @onready var rage_component: RageComponent = $RageComponent
 @onready var melee_hitbox: HitboxComponent = $Visuals/MeleeHitbox
-@onready var melee_visual: ColorRect = $Visuals/MeleeHitbox/MeleeVisual
+@onready var melee_visual: Sprite2D = $Visuals/MeleeHitbox/MeleeVisual
 @onready var revolver: RevolverComponent = $RevolverComponent
 @onready var muzzle_point: Marker2D = $Visuals/MuzzlePoint
 

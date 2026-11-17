@@ -14,15 +14,18 @@
 [ext_resource type="Script" uid="uid://wmyo4ap26hlx" path="res://components/hitbox_component.gd" id="9_bectd"]
 [ext_resource type="Script" uid="uid://dmojnq8dobxyi" path="res://weapons/revolver/revolver_component.gd" id="11_j3ovn"]
 [ext_resource type="PackedScene" uid="uid://1l6sfsgq7lem" path="res://weapons/projectiles/bullet.tscn" id="12_afbqv"]
+[ext_resource type="Texture2D" uid="uid://syy0m3rjfvx" path="res://assets/art.png" id="13_b2kln"]
 [ext_resource type="Resource" uid="uid://bv2lxw1m43qtn" path="res://weapons/revolver/normal_bullet.tres" id="13_gx6sm"]
 [ext_resource type="Script" uid="uid://c4v20vfa4g6hg" path="res://components/rage_component.gd" id="14_afbqv"]
 [ext_resource type="PackedScene" uid="uid://gh2f8iafaxpm" path="res://weapons/projectiles/shell_casing.tscn.tscn" id="14_yqrof"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvtmh"]
-size = Vector2(10, 10.5)
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
+atlas = ExtResource("13_b2kln")
+region = Rect2(34, 163, 29, 29)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bectd"]
-size = Vector2(10, 9)
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf5fn"]
+atlas = ExtResource("13_b2kln")
+region = Rect2(72, 207, 40, 35)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yqjtg"]
 atlas = ExtResource("2_bls4j")
@@ -70,20 +73,35 @@ animations = [{
 "loop": 1,
 "name": &"Run",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": 1,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(7, 13)
+size = Vector2(44, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57qmd"]
+atlas = ExtResource("13_b2kln")
+region = Rect2(121, 203, 46, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvtmh"]
+size = Vector2(12, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bectd"]
+size = Vector2(10, 24.5)
 
 [node name="Player" type="CharacterBody2D" unique_id=121077867]
+process_mode = 1
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_sglur")
 jump_dust_scene = ExtResource("2_3wlsy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1185861414]
-position = Vector2(0, 2.75)
-shape = SubResource("RectangleShape2D_wvtmh")
 
 [node name="StateMachine" type="Node" parent="." unique_id=645298442 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_fkugw")
@@ -108,52 +126,22 @@ script = ExtResource("7_gx6sm")
 script = ExtResource("7_qiwj3")
 metadata/_custom_type_script = "uid://kxvpkd8xjrdq"
 
-[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1803508530 node_paths=PackedStringArray("health_component")]
-collision_layer = 8
-script = ExtResource("8_26q78")
-health_component = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://cu3sf6jftulnn"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1644815006]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_bectd")
-debug_color = Color(0.9831392, 0, 0.36008546, 0.41960785)
-
 [node name="Visuals" type="Node2D" parent="." unique_id=1135498082]
 
-[node name="HumanSprite" type="AnimatedSprite2D" parent="Visuals" unique_id=769772647]
-sprite_frames = SubResource("SpriteFrames_u5sy4")
-animation = &"Idle"
-autoplay = "Idle"
+[node name="Human" type="Sprite2D" parent="Visuals" unique_id=1741844181]
+position = Vector2(5, 0)
+texture = SubResource("AtlasTexture_g4v7s")
 
-[node name="MeleeHitbox" type="Area2D" parent="Visuals" unique_id=1151591482]
-position = Vector2(9, 2)
-collision_layer = 16
-collision_mask = 48
-script = ExtResource("9_bectd")
-is_melee = true
-metadata/_custom_type_script = "uid://wmyo4ap26hlx"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeHitbox" unique_id=553878752]
-shape = SubResource("RectangleShape2D_g4v7s")
-
-[node name="MeleeVisual" type="ColorRect" parent="Visuals/MeleeHitbox" unique_id=935331191]
+[node name="Monster" type="Sprite2D" parent="Visuals" unique_id=489621616]
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -3.0
-offset_top = -6.0
-offset_right = 3.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 0, 0, 0.49019608)
+position = Vector2(-1, -3)
+texture = SubResource("AtlasTexture_yf5fn")
 
-[node name="MuzzlePoint" type="Marker2D" parent="Visuals" unique_id=710622540]
-position = Vector2(6, 5)
+[node name="HumanSprite" type="AnimatedSprite2D" parent="Visuals" unique_id=769772647]
+visible = false
+sprite_frames = SubResource("SpriteFrames_u5sy4")
+animation = &"new_animation"
+autoplay = "new_animation"
 
 [node name="MonsterSprite" type="AnimatedSprite2D" parent="Visuals" unique_id=1441963545]
 visible = false
@@ -161,6 +149,40 @@ modulate = Color(3.080368e-06, 0.65093696, 0.17691195, 1)
 sprite_frames = SubResource("SpriteFrames_u5sy4")
 animation = &"Idle"
 autoplay = "Idle"
+
+[node name="MeleeHitbox" type="Area2D" parent="Visuals" unique_id=1151591482]
+position = Vector2(16, -4)
+collision_layer = 16
+collision_mask = 48
+script = ExtResource("9_bectd")
+is_melee = true
+metadata/_custom_type_script = "uid://wmyo4ap26hlx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeHitbox" unique_id=553878752]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="MeleeVisual" type="Sprite2D" parent="Visuals/MeleeHitbox" unique_id=2005037528]
+visible = false
+texture = SubResource("AtlasTexture_57qmd")
+
+[node name="MuzzlePoint" type="Marker2D" parent="Visuals" unique_id=710622540]
+position = Vector2(19, -5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1185861414]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_wvtmh")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1803508530 node_paths=PackedStringArray("health_component")]
+collision_layer = 8
+script = ExtResource("8_26q78")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cu3sf6jftulnn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1644815006]
+position = Vector2(0, 1.75)
+shape = SubResource("RectangleShape2D_bectd")
+debug_color = Color(0.9831392, 0, 0.36008546, 0.41960785)
 
 [node name="RevolverComponent" type="Node" parent="." unique_id=1800634975]
 script = ExtResource("11_j3ovn")
@@ -172,4 +194,4 @@ default_bullet = ExtResource("13_gx6sm")
 script = ExtResource("14_afbqv")
 
 [node name="FeetPoint" type="Marker2D" parent="." unique_id=1584149011]
-position = Vector2(0, 8)
+position = Vector2(0, 15)

@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://kqhc85iwg0fx"]
+
+[ext_resource type="Script" uid="uid://dw8wediub4eej" path="res://entities/enemies/thwomp/thwomp_enemy.gd" id="1_cik1n"]
+[ext_resource type="Script" uid="uid://kxvpkd8xjrdq" path="res://components/health_component.gd" id="1_qp3u0"]
+[ext_resource type="Script" uid="uid://cu3sf6jftulnn" path="res://components/hurtbox_component.gd" id="2_cik1n"]
+[ext_resource type="Script" uid="uid://by4doemoat431" path="res://components/loot_drop_component.gd" id="3_wa2ue"]
+[ext_resource type="PackedScene" uid="uid://17g8ufp3ira4" path="res://weapons/pickups/ammo_pickup.tscn" id="4_i2x87"]
+[ext_resource type="Resource" uid="uid://bv2lxw1m43qtn" path="res://weapons/revolver/normal_bullet.tres" id="5_alp6w"]
+[ext_resource type="Texture2D" uid="uid://syy0m3rjfvx" path="res://assets/art.png" id="7_vkx3w"]
+[ext_resource type="Script" uid="uid://wmyo4ap26hlx" path="res://components/hitbox_component.gd" id="8_lxppk"]
+[ext_resource type="Script" uid="uid://bwjleqcgiaas0" path="res://components/state_machine.gd" id="9_ayuvy"]
+[ext_resource type="Script" uid="uid://d241nwl3jip0e" path="res://entities/enemies/thwomp/states/thwomp_idle.gd" id="10_l854s"]
+[ext_resource type="Script" uid="uid://dsspu66dqfxiv" path="res://entities/enemies/thwomp/states/thwomp_fall.gd" id="11_g1gwv"]
+[ext_resource type="Script" uid="uid://clqsqdt8xec5p" path="res://entities/enemies/thwomp/states/thwomp_landed.gd" id="12_gykjl"]
+[ext_resource type="Script" uid="uid://dnldbd875duou" path="res://entities/enemies/thwomp/states/thwomp_return.gd" id="13_d2sn2"]
+[ext_resource type="Script" uid="uid://cf73j10845muq" path="res://entities/enemies/states/enemy_dead.gd" id="14_lxppk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkx3w"]
+size = Vector2(24, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gtmtp"]
+size = Vector2(24, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxppk"]
+size = Vector2(16, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmveg"]
+atlas = ExtResource("7_vkx3w")
+region = Rect2(115, 34, 24, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_by3w2"]
+size = Vector2(20, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayuvy"]
+size = Vector2(24, 2)
+
+[node name="ThwompEnemy" type="CharacterBody2D" unique_id=941568024]
+process_mode = 1
+collision_layer = 4
+script = ExtResource("1_cik1n")
+can_be_knocked_back = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1235551724]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_vkx3w")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=135140677]
+script = ExtResource("1_qp3u0")
+max_health = 200
+metadata/_custom_type_script = "uid://kxvpkd8xjrdq"
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=676660492 node_paths=PackedStringArray("health_component")]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("2_cik1n")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cu3sf6jftulnn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=308103774]
+shape = SubResource("RectangleShape2D_gtmtp")
+
+[node name="LootDropComponent" type="Node" parent="." unique_id=357836025 node_paths=PackedStringArray("health_component")]
+script = ExtResource("3_wa2ue")
+health_component = NodePath("../HealthComponent")
+pickup_scene = ExtResource("4_i2x87")
+drop_bullet_data = ExtResource("5_alp6w")
+metadata/_custom_type_script = "uid://by4doemoat431"
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1635687809]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=639728368]
+position = Vector2(0, 29)
+
+[node name="TriggerArea" type="Area2D" parent="." unique_id=292847997]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerArea" unique_id=1732036788]
+position = Vector2(0, 29)
+shape = SubResource("RectangleShape2D_lxppk")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=911977384]
+
+[node name="PlaceholderSprite" type="Sprite2D" parent="Visuals" unique_id=638957720]
+texture = SubResource("AtlasTexture_cmveg")
+metadata/_edit_use_anchors_ = true
+
+[node name="FloorRayCast" type="RayCast2D" parent="Visuals" unique_id=1076536183]
+position = Vector2(0, 15)
+target_position = Vector2(0, 20)
+
+[node name="ContactHitbox" type="Area2D" parent="Visuals" unique_id=1659237735]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("8_lxppk")
+continuous_damage = true
+metadata/_custom_type_script = "uid://wmyo4ap26hlx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/ContactHitbox" unique_id=557806947]
+shape = SubResource("RectangleShape2D_by3w2")
+
+[node name="SmashHitbox" type="Area2D" parent="Visuals" unique_id=957122532]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("8_lxppk")
+metadata/_custom_type_script = "uid://wmyo4ap26hlx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/SmashHitbox" unique_id=520772778]
+position = Vector2(0, 14)
+shape = SubResource("RectangleShape2D_ayuvy")
+
+[node name="StateMachine" type="Node" parent="." unique_id=81283944 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("9_ayuvy")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://bwjleqcgiaas0"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=707137154]
+script = ExtResource("10_l854s")
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=1426031022]
+script = ExtResource("11_g1gwv")
+
+[node name="Landed" type="Node" parent="StateMachine" unique_id=84300232]
+script = ExtResource("12_gykjl")
+
+[node name="Return" type="Node" parent="StateMachine" unique_id=622819265]
+script = ExtResource("13_d2sn2")
+
+[node name="Dead" type="Node" parent="StateMachine" unique_id=1113766632]
+script = ExtResource("14_lxppk")
